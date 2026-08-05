@@ -88,7 +88,7 @@ restart Claude Desktop:
   "mcpServers": {
     "poloniex": {
       "command": "node",
-      "args": ["/Users/salleh/repos/poloniex-mcp/dist/index.js"],
+      "args": ["/absolute/path/to/poloniex-mcp/dist/index.js"],
       "env": {
         "POLONIEX_API_KEY": "your-api-key-here",
         "POLONIEX_API_SECRET": "your-api-secret-here"
