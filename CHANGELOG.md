@@ -1,0 +1,28 @@
+# Changelog
+
+All notable changes to this project are documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [0.1.0] - 2026-08-05
+
+### Added
+
+- TypeScript MCP server built on the official `@modelcontextprotocol/sdk`
+  high-level `McpServer` API with stdio transport.
+- `get_ticker` tool (public): 24h ticker for a spot symbol.
+- `get_orderbook` tool (public): order book depth for a spot symbol.
+- `get_balances` tool (authenticated): account balances signed with
+  HMAC-SHA256, per the Poloniex REST specification.
+- Zod-validated tool inputs and environment configuration.
+- `dotenv` support for local development via `.env`.
+- Vitest test suite: unit tests (auth signing, HTTP client) plus in-memory MCP
+  integration tests, with coverage support.
+- Project tooling: strict TypeScript build, Prettier, and npm scripts
+  (`build`, `dev`, `start`, `test`, `typecheck`, `format`).
+
+[Unreleased]: https://github.com/salleh/poloniex-mcp/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/salleh/poloniex-mcp/releases/tag/v0.1.0
