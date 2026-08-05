@@ -1,0 +1,21 @@
+{
+  "name": "poloniex-mcp",
+  "version": "1.0.0",
+  "description": "Local MCP server exposing Poloniex spot market data and account balances",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "poloniex-mcp": "index.js"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "author": "Sallehuddin Abdul Latif <sallehuddin@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.19.1"
+  }
+}
