@@ -15,6 +15,12 @@ coverage/
 !.env.example
 *.pem
 
+# Local Claude Code settings (personal, per-project)
+.claude/settings.local.json
+
+# Local-only development plans (not synced to GitHub)
+docs/plan/
+
 # OS / editor cruft
 .DS_Store
 Thumbs.db

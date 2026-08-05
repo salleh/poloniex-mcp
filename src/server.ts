@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { Config } from "./config.js";
 import { PoloniexClient } from "./poloniex/client.js";
-import { registerTools } from "./tools.js";
+import { registerTools } from "./tools/index.js";
 
 /** Read the package version so the server reports a single source of truth. */
 function readVersion(): string {

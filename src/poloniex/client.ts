@@ -9,7 +9,7 @@ export class PoloniexError extends Error {
   }
 }
 
-type Query = Record<string, string | number>;
+export type Query = Record<string, string | number>;
 
 interface RequestOptions {
   query?: Query;
@@ -135,11 +135,16 @@ export class PoloniexClient {
     return this.signedGet("/orders", query);
   }
 
+  /** Public (unauthenticated) GET for market/reference endpoints. */
+  get(path: string, query: Query = {}): Promise<unknown> {
+    return this.request("GET", path, { query });
+  }
+
   /**
    * Perform an authenticated GET, signing the query. The signed params must
    * exactly match the query that is sent, so both derive from `query`.
    */
-  private async signedGet(path: string, query: Query): Promise<unknown> {
+  async signedGet(path: string, query: Query = {}): Promise<unknown> {
     const { apiKey, apiSecret } = this.config;
     if (!apiKey || !apiSecret) {
       throw new PoloniexError(

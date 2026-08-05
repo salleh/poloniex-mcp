@@ -29,7 +29,12 @@ src/
   index.ts            # entry point: loads config, starts stdio transport
   server.ts           # builds the McpServer and registers tools
   config.ts           # env configuration, validated with Zod
-  tools.ts            # tool definitions (Zod input schemas + handlers)
+  tools/
+    index.ts          # registerTools(): wires per-domain tool groups
+    shared.ts         # shared helpers (result wrapping, normalization)
+    market.ts         # public market-data tools
+    account.ts        # authenticated account tools
+    orders.ts         # authenticated order read tools
   poloniex/
     client.ts         # typed HTTP client (timeout + error handling)
     auth.ts           # HMAC-SHA256 request signing
