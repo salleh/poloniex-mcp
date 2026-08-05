@@ -25,6 +25,14 @@ export interface BalancesOptions {
   accountType?: string;
 }
 
+export interface OpenOrdersOptions {
+  symbol?: string;
+  side?: string;
+  from?: number;
+  direction?: string;
+  limit?: number;
+}
+
 /**
  * Thin, typed HTTP client for the Poloniex spot REST API. Every failure is
  * surfaced as a {@link PoloniexError} with a clean, client-safe message.
@@ -109,18 +117,36 @@ export class PoloniexClient {
 
   /** Authenticated: account balances. Throws if credentials are missing. */
   async getBalances(options: BalancesOptions = {}): Promise<unknown> {
+    const query: Query = {};
+    if (options.accountType) {
+      query.accountType = options.accountType;
+    }
+    return this.signedGet("/accounts/balances", query);
+  }
+
+  /** Authenticated: active (open) orders. Throws if credentials are missing. */
+  async getOpenOrders(options: OpenOrdersOptions = {}): Promise<unknown> {
+    const query: Query = {};
+    if (options.symbol) query.symbol = options.symbol;
+    if (options.side) query.side = options.side;
+    if (options.from !== undefined) query.from = options.from;
+    if (options.direction) query.direction = options.direction;
+    if (options.limit !== undefined) query.limit = options.limit;
+    return this.signedGet("/orders", query);
+  }
+
+  /**
+   * Perform an authenticated GET, signing the query. The signed params must
+   * exactly match the query that is sent, so both derive from `query`.
+   */
+  private async signedGet(path: string, query: Query): Promise<unknown> {
     const { apiKey, apiSecret } = this.config;
     if (!apiKey || !apiSecret) {
       throw new PoloniexError(
         "Missing credentials: set POLONIEX_API_KEY and POLONIEX_API_SECRET in " +
-          "the environment to use authenticated tools such as get_balances.",
+          "the environment to use authenticated tools such as get_balances and " +
+          "get_open_orders.",
       );
-    }
-
-    const path = "/accounts/balances";
-    const query: Query = {};
-    if (options.accountType) {
-      query.accountType = options.accountType;
     }
 
     const headers = buildAuthHeaders({

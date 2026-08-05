@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-05
+
+### Added
+
+- `get_open_orders` tool (authenticated): fetch active orders via
+  `GET /orders`, with optional `symbol`, `side`, `from`, `direction`, and
+  `limit` filters.
+
 ## [0.1.0] - 2026-08-05
 
 ### Added
@@ -24,5 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Project tooling: strict TypeScript build, Prettier, and npm scripts
   (`build`, `dev`, `start`, `test`, `typecheck`, `format`).
 
-[Unreleased]: https://github.com/salleh/poloniex-mcp/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/salleh/poloniex-mcp/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/salleh/poloniex-mcp/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/salleh/poloniex-mcp/releases/tag/v0.1.0

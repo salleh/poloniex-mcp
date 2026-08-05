@@ -25,11 +25,12 @@ describe("MCP server", () => {
     vi.unstubAllGlobals();
   });
 
-  it("lists the three expected tools", async () => {
+  it("lists the four expected tools", async () => {
     const client = await connect();
     const { tools } = await client.listTools();
     expect(tools.map((tool) => tool.name).sort()).toEqual([
       "get_balances",
+      "get_open_orders",
       "get_orderbook",
       "get_ticker",
     ]);
@@ -86,5 +87,45 @@ describe("MCP server", () => {
     const url = fetchMock.mock.calls[0]?.[0] as URL;
     expect(url.pathname).toBe("/markets/BTC_USDT/orderBook");
     expect(url.searchParams.get("limit")).toBe("10");
+  });
+
+  it("get_open_orders errors without credentials", async () => {
+    const client = await connect({});
+    const result = await client.callTool({
+      name: "get_open_orders",
+      arguments: {},
+    });
+
+    expect(result.isError).toBe(true);
+    const content = result.content as TextContent;
+    expect(content[0]?.text).toMatch(/Missing credentials/);
+  });
+
+  it("get_open_orders sends a signed request with filters", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(new Response(JSON.stringify([]), { status: 200 }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const client = await connect({
+      POLONIEX_API_KEY: "test-key",
+      POLONIEX_API_SECRET: "test-secret",
+    });
+    const result = await client.callTool({
+      name: "get_open_orders",
+      arguments: { symbol: "btc_usdt", side: "BUY", limit: 50 },
+    });
+
+    expect(result.isError).toBeFalsy();
+    const url = fetchMock.mock.calls[0]?.[0] as URL;
+    expect(url.pathname).toBe("/orders");
+    expect(url.searchParams.get("symbol")).toBe("BTC_USDT");
+    expect(url.searchParams.get("side")).toBe("BUY");
+    expect(url.searchParams.get("limit")).toBe("50");
+
+    const init = fetchMock.mock.calls[0]?.[1] as RequestInit;
+    const headers = init.headers as Record<string, string>;
+    expect(headers.key).toBe("test-key");
+    expect(typeof headers.signature).toBe("string");
   });
 });

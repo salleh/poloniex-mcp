@@ -8,11 +8,12 @@ exposes the [Poloniex](https://poloniex.com) spot exchange to any MCP client
 
 ## Tools
 
-| Tool            | Auth | Description                                          |
-| --------------- | ---- | ---------------------------------------------------- |
-| `get_ticker`    | No   | 24h ticker (price, high, low, volume) for a symbol.  |
-| `get_orderbook` | No   | Order book depth (bids/asks) for a symbol.           |
-| `get_balances`  | Yes  | Account balances, signed with your Poloniex API key. |
+| Tool              | Auth | Description                                          |
+| ----------------- | ---- | ---------------------------------------------------- |
+| `get_ticker`      | No   | 24h ticker (price, high, low, volume) for a symbol.  |
+| `get_orderbook`   | No   | Order book depth (bids/asks) for a symbol.           |
+| `get_balances`    | Yes  | Account balances, signed with your Poloniex API key. |
+| `get_open_orders` | Yes  | Active (open) orders, with optional filters.         |
 
 Symbols use Poloniex format, e.g. `BTC_USDT` (input is normalized, so
 `btc_usdt` also works).
