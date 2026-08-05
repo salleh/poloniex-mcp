@@ -128,4 +128,60 @@ describe("PoloniexClient", () => {
     expect(typeof headers.signature).toBe("string");
     expect(headers.signTimestamp).toMatch(/^\d+$/);
   });
+
+  it("getOrderBook builds the correct URL with limit and scale", async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(
+        new Response(JSON.stringify({ bids: [], asks: [] }), { status: 200 }),
+      );
+    vi.stubGlobal("fetch", fetchMock);
+
+    const client = new PoloniexClient(loadConfig({}));
+    await client.getOrderBook("BTC_USDT", { limit: 5, scale: "0.01" });
+
+    const url = fetchMock.mock.calls[0]?.[0] as URL;
+    expect(url.pathname).toBe("/markets/BTC_USDT/orderBook");
+    expect(url.searchParams.get("limit")).toBe("5");
+    expect(url.searchParams.get("scale")).toBe("0.01");
+  });
+
+  it("maps an aborted request to a timeout error", async () => {
+    const timeout = new Error("aborted");
+    timeout.name = "TimeoutError";
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(timeout));
+
+    const client = new PoloniexClient(
+      loadConfig({ POLONIEX_TIMEOUT_MS: "5000" }),
+    );
+    await expect(client.getTicker24h("BTC_USDT")).rejects.toThrow(
+      /timed out after 5000 ms/,
+    );
+  });
+
+  it("wraps a generic network error", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockRejectedValue(new Error("ECONNREFUSED")),
+    );
+
+    const client = new PoloniexClient(loadConfig({}));
+    await expect(client.getTicker24h("BTC_USDT")).rejects.toThrow(
+      /Network error contacting Poloniex/,
+    );
+  });
+
+  it("throws on a non-JSON response body", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi
+        .fn()
+        .mockResolvedValue(new Response("<html>oops</html>", { status: 200 })),
+    );
+
+    const client = new PoloniexClient(loadConfig({}));
+    await expect(client.getTicker24h("BTC_USDT")).rejects.toThrow(
+      /non-JSON response/,
+    );
+  });
 });
