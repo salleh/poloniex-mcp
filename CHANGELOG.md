@@ -128,7 +128,11 @@ Semantic Versioning; breaking changes will bump the MAJOR version.
 - Project tooling: strict TypeScript build, Prettier, and npm scripts
   (`build`, `dev`, `start`, `test`, `typecheck`, `format`).
 
-[Unreleased]: https://github.com/salleh/poloniex-mcp/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/salleh/poloniex-mcp/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/salleh/poloniex-mcp/compare/v0.7.1...v1.0.0
+[0.7.1]: https://github.com/salleh/poloniex-mcp/compare/v0.7.0...v0.7.1
+[0.7.0]: https://github.com/salleh/poloniex-mcp/compare/v0.6.0...v0.7.0
+[0.6.0]: https://github.com/salleh/poloniex-mcp/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/salleh/poloniex-mcp/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/salleh/poloniex-mcp/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/salleh/poloniex-mcp/compare/v0.2.0...v0.3.0
