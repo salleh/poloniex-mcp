@@ -1,6 +1,6 @@
 {
   "name": "poloniex-mcp",
-  "version": "0.7.1",
+  "version": "1.0.0",
   "description": "Local MCP server exposing Poloniex spot market data and account balances",
   "type": "module",
   "main": "dist/index.js",
