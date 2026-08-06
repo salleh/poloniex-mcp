@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-08-06
+
+### Added
+
+- Authenticated order tools: `get_order` (`/orders/{id}` or client order id via
+  `cid:`), `get_orders_history` (`/orders/history`), `get_order_trades`
+  (`/orders/{id}/trades`), `get_trade_history` (`/trades`), and
+  `get_kill_switch_status` (`/orders/killSwitchStatus`).
+- Authenticated smart-order tools: `get_smart_open_orders` (`/smartorders`),
+  `get_smart_order` (`/smartorders/{id}` or `cid:`), and
+  `get_smart_orders_history` (`/smartorders/history`).
+
+  Paths and parameters cross-checked against the official Poloniex Python and
+  Java SDKs (`cid:` lookup and the canonical `/trades` path).
+
 ## [0.4.0] - 2026-08-06
 
 ### Added
@@ -63,7 +78,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Project tooling: strict TypeScript build, Prettier, and npm scripts
   (`build`, `dev`, `start`, `test`, `typecheck`, `format`).
 
-[Unreleased]: https://github.com/salleh/poloniex-mcp/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/salleh/poloniex-mcp/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/salleh/poloniex-mcp/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/salleh/poloniex-mcp/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/salleh/poloniex-mcp/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/salleh/poloniex-mcp/compare/v0.1.0...v0.2.0
