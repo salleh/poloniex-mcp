@@ -78,6 +78,12 @@ export function registerOrdersTools(
           .string()
           .optional()
           .describe('Filter by trading pair, e.g. "BTC_USDT". Omit for all.'),
+        accountType: z
+          .string()
+          .optional()
+          .describe(
+            'Account type; "SPOT" is the default and only supported value.',
+          ),
         side: z
           .enum(["BUY", "SELL"])
           .optional()
@@ -101,10 +107,13 @@ export function registerOrdersTools(
           .describe("Number of orders to return (default 500, max 2000)."),
       },
     },
-    async ({ symbol, side, from, direction, limit }) =>
+    async ({ symbol, accountType, side, from, direction, limit }) =>
       toToolResult(() =>
         client.getOpenOrders({
           symbol: symbol ? normalizeSymbol(symbol) : undefined,
+          accountType: accountType
+            ? accountType.trim().toUpperCase()
+            : undefined,
           side,
           from,
           direction,

@@ -31,6 +31,7 @@ export interface OpenOrdersOptions {
   from?: number;
   direction?: string;
   limit?: number;
+  accountType?: string;
 }
 
 /**
@@ -132,6 +133,7 @@ export class PoloniexClient {
     if (options.from !== undefined) query.from = options.from;
     if (options.direction) query.direction = options.direction;
     if (options.limit !== undefined) query.limit = options.limit;
+    if (options.accountType) query.accountType = options.accountType;
     return this.signedGet("/orders", query);
   }
 

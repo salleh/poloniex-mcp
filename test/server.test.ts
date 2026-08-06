@@ -144,7 +144,12 @@ describe("MCP server", () => {
     });
     const result = await client.callTool({
       name: "get_open_orders",
-      arguments: { symbol: "btc_usdt", side: "BUY", limit: 50 },
+      arguments: {
+        symbol: "btc_usdt",
+        side: "BUY",
+        limit: 50,
+        accountType: "spot",
+      },
     });
 
     expect(result.isError).toBeFalsy();
@@ -153,6 +158,7 @@ describe("MCP server", () => {
     expect(url.searchParams.get("symbol")).toBe("BTC_USDT");
     expect(url.searchParams.get("side")).toBe("BUY");
     expect(url.searchParams.get("limit")).toBe("50");
+    expect(url.searchParams.get("accountType")).toBe("SPOT");
 
     const init = fetchMock.mock.calls[0]?.[1] as RequestInit;
     const headers = init.headers as Record<string, string>;
