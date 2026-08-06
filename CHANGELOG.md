@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- README now documents all 35 tools, grouped by domain (public market/reference
+  and authenticated account/wallets/orders/smart orders/margin/subaccounts) with
+  each tool's endpoint, and refreshes the project-structure tree.
+
+## [0.7.0] - 2026-08-06
+
 ### Added
 
 - `get_open_orders` now accepts an optional `accountType` filter, matching the
