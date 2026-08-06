@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-08-06
+
+### Added
+
+- Authenticated account tools: `get_account_info` (`/accounts`),
+  `get_account_activity` (`/accounts/activity`, with `activityType`, `currency`,
+  time-window, and pagination filters), `get_fee_info` (`/feeinfo`),
+  `get_interest_history` (`/accounts/interest/history`), and
+  `get_transfer_records` (`/accounts/transfer`).
+- Authenticated wallet tools: `get_deposit_addresses` (`/wallets/addresses`)
+  and `get_wallet_activity` (`/wallets/activity`, with required `start`/`end`
+  window and optional deposits/withdrawals filter).
+
 ## [0.3.0] - 2026-08-06
 
 ### Added
@@ -50,7 +63,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Project tooling: strict TypeScript build, Prettier, and npm scripts
   (`build`, `dev`, `start`, `test`, `typecheck`, `format`).
 
-[Unreleased]: https://github.com/salleh/poloniex-mcp/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/salleh/poloniex-mcp/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/salleh/poloniex-mcp/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/salleh/poloniex-mcp/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/salleh/poloniex-mcp/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/salleh/poloniex-mcp/releases/tag/v0.1.0
