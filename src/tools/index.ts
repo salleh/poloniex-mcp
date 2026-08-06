@@ -6,6 +6,8 @@ import { registerAccountTools } from "./account.js";
 import { registerWalletsTools } from "./wallets.js";
 import { registerOrdersTools } from "./orders.js";
 import { registerSmartOrdersTools } from "./smartorders.js";
+import { registerMarginTools } from "./margin.js";
+import { registerSubaccountsTools } from "./subaccounts.js";
 
 /** Register all Poloniex tools on the given MCP server, grouped by domain. */
 export function registerTools(server: McpServer, client: PoloniexClient): void {
@@ -15,4 +17,6 @@ export function registerTools(server: McpServer, client: PoloniexClient): void {
   registerWalletsTools(server, client);
   registerOrdersTools(server, client);
   registerSmartOrdersTools(server, client);
+  registerMarginTools(server, client);
+  registerSubaccountsTools(server, client);
 }

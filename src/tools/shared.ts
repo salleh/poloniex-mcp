@@ -10,6 +10,10 @@ export const MAX_TRANSFER_RECORDS_LIMIT = 1000;
 export const MAX_CANDLES_LIMIT = 500;
 export const MAX_MARKET_TRADES_LIMIT = 1000;
 export const MAX_TRADE_HISTORY_LIMIT = 1000;
+export const MAX_SUBACCOUNT_TRANSFER_LIMIT = 1000;
+
+/** Account types accepted by subaccount transfer filters and margin queries. */
+export const ACCOUNT_TYPES = ["SPOT", "FUTURES"] as const;
 
 /**
  * Valid candle intervals accepted by `/markets/{symbol}/candles`, confirmed
@@ -97,6 +101,38 @@ export function buildOrderHistoryQuery(input: OrderHistoryQueryInput): Query {
   if (input.direction) query.direction = input.direction;
   if (input.limit !== undefined) query.limit = input.limit;
   if (input.from !== undefined) query.from = input.from;
+  if (input.startTime !== undefined) query.startTime = input.startTime;
+  if (input.endTime !== undefined) query.endTime = input.endTime;
+  return query;
+}
+
+/** Fields accepted by the `/subaccounts/transfer` records endpoint. */
+export interface SubaccountTransferQueryInput {
+  limit?: number;
+  from?: number;
+  direction?: string;
+  currency?: string;
+  fromAccountId?: string;
+  fromAccountType?: string;
+  toAccountId?: string;
+  toAccountType?: string;
+  startTime?: number;
+  endTime?: number;
+}
+
+/** Build a query for the subaccount transfer records endpoint, omitting unset fields. */
+export function buildSubaccountTransferQuery(
+  input: SubaccountTransferQueryInput,
+): Query {
+  const query: Query = {};
+  if (input.limit !== undefined) query.limit = input.limit;
+  if (input.from !== undefined) query.from = input.from;
+  if (input.direction) query.direction = input.direction;
+  if (input.currency) query.currency = input.currency;
+  if (input.fromAccountId) query.fromAccountId = input.fromAccountId;
+  if (input.fromAccountType) query.fromAccountType = input.fromAccountType;
+  if (input.toAccountId) query.toAccountId = input.toAccountId;
+  if (input.toAccountType) query.toAccountType = input.toAccountType;
   if (input.startTime !== undefined) query.startTime = input.startTime;
   if (input.endTime !== undefined) query.endTime = input.endTime;
   return query;
