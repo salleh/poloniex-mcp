@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-08-06
+
+### Added
+
+- Authenticated margin tools: `get_account_margin` (`/margin/accountMargin`),
+  `get_borrow_status` (`/margin/borrowStatus`), and `get_max_size`
+  (`/margin/maxSize`).
+- Authenticated subaccount tools: `get_subaccounts` (`/subaccounts`),
+  `get_subaccount_balances` (`/subaccounts/balances`), and
+  `get_subaccount_transfer_records` (`/subaccounts/transfer`, with pagination,
+  currency, time-window, and from/to account filters).
+
+  This completes read-only coverage of all 35 Poloniex Spot REST GET endpoints.
+  Paths and parameters cross-checked against the official Poloniex Java SDK
+  (margin path constants and query signatures) and the REST docs.
+
 ## [0.5.0] - 2026-08-06
 
 ### Added
