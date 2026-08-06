@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-08-06
+
+First stable release. Completes read-only coverage of **all 35 Poloniex Spot
+REST `GET` endpoints** — public market and reference data, plus authenticated
+account, wallets, orders, smart orders, margin, and subaccounts. Every tool's
+path and parameters are validated against the official Poloniex Python and Java
+SDKs and the REST docs. This server is read-only by design: it never places,
+modifies, or cancels orders.
+
+Beyond the `1.0.0` milestone the public API is considered stable and follows
+Semantic Versioning; breaking changes will bump the MAJOR version.
+
 ## [0.7.1] - 2026-08-06
 
 ### Changed
