@@ -25,14 +25,24 @@ describe("MCP server", () => {
     vi.unstubAllGlobals();
   });
 
-  it("lists the four expected tools", async () => {
+  it("lists the expected public and authenticated tools", async () => {
     const client = await connect();
     const { tools } = await client.listTools();
     expect(tools.map((tool) => tool.name).sort()).toEqual([
       "get_balances",
+      "get_borrow_rates_info",
+      "get_candles",
+      "get_collateral_info",
+      "get_currencies",
+      "get_mark_price",
+      "get_mark_price_components",
+      "get_market_trades",
       "get_open_orders",
       "get_orderbook",
+      "get_price",
+      "get_symbols",
       "get_ticker",
+      "get_timestamp",
     ]);
   });
 
