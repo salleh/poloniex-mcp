@@ -225,6 +225,32 @@ describe("authenticated account & wallet tools", () => {
     expect(url.searchParams.get("activityType")).toBe("deposits");
   });
 
+  it("get_wallet_activity accepts the adjustments activity type", async () => {
+    const fetchMock = stubFetch([]);
+    const client = await connect(AUTH_ENV);
+
+    const result = await client.callTool({
+      name: "get_wallet_activity",
+      arguments: { start: 1000, end: 2000, activityType: "adjustments" },
+    });
+
+    expect(result.isError).toBeFalsy();
+    expect(requestedUrl(fetchMock).searchParams.get("activityType")).toBe(
+      "adjustments",
+    );
+  });
+
+  it("get_wallet_activity rejects an unknown activity type", async () => {
+    const client = await connect(AUTH_ENV);
+
+    const result = await client.callTool({
+      name: "get_wallet_activity",
+      arguments: { start: 1000, end: 2000, activityType: "trades" },
+    });
+
+    expect(result.isError).toBe(true);
+  });
+
   it("get_wallet_activity requires start and end", async () => {
     const client = await connect(AUTH_ENV);
 

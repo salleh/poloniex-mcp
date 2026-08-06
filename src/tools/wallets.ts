@@ -54,9 +54,9 @@ export function registerWalletsTools(
           .nonnegative()
           .describe("End of the window, as a UNIX timestamp (required)."),
         activityType: z
-          .enum(["deposits", "withdrawals"])
+          .enum(["adjustments", "deposits", "withdrawals"])
           .optional()
-          .describe("Filter by activity type. Omit for both."),
+          .describe("Filter by activity type. Omit for all types."),
       },
     },
     async ({ start, end, activityType }) =>
