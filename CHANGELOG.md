@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `get_open_orders` now accepts an optional `accountType` filter, matching the
+  official SDKs and the existing `get_orders_history` tool.
+
+### Fixed
+
+- `get_wallet_activity` now accepts `adjustments` as an `activityType` (in
+  addition to `deposits` and `withdrawals`); all three are documented as valid
+  by the official Poloniex Python and Java SDKs. The value was previously
+  unreachable.
+
 ## [0.6.0] - 2026-08-06
 
 ### Added
