@@ -29,11 +29,16 @@ describe("MCP server", () => {
     const client = await connect();
     const { tools } = await client.listTools();
     expect(tools.map((tool) => tool.name).sort()).toEqual([
+      "get_account_activity",
+      "get_account_info",
       "get_balances",
       "get_borrow_rates_info",
       "get_candles",
       "get_collateral_info",
       "get_currencies",
+      "get_deposit_addresses",
+      "get_fee_info",
+      "get_interest_history",
       "get_mark_price",
       "get_mark_price_components",
       "get_market_trades",
@@ -43,6 +48,8 @@ describe("MCP server", () => {
       "get_symbols",
       "get_ticker",
       "get_timestamp",
+      "get_transfer_records",
+      "get_wallet_activity",
     ]);
   });
 
