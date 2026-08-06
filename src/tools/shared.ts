@@ -9,6 +9,7 @@ export const MAX_INTEREST_HISTORY_LIMIT = 100;
 export const MAX_TRANSFER_RECORDS_LIMIT = 1000;
 export const MAX_CANDLES_LIMIT = 500;
 export const MAX_MARKET_TRADES_LIMIT = 1000;
+export const MAX_TRADE_HISTORY_LIMIT = 1000;
 
 /**
  * Valid candle intervals accepted by `/markets/{symbol}/candles`, confirmed
@@ -66,6 +67,57 @@ export function buildActivityQuery(input: ActivityQueryInput): Query {
   if (input.currency) query.currency = input.currency;
   if (input.activityType !== undefined) query.activityType = input.activityType;
   return query;
+}
+
+/** Fields shared by the `/orders/history` and `/smartorders/history` endpoints. */
+export interface OrderHistoryQueryInput {
+  accountType?: string;
+  hideCancel?: boolean;
+  type?: string;
+  side?: string;
+  symbol?: string;
+  states?: string;
+  direction?: string;
+  limit?: number;
+  from?: number;
+  startTime?: number;
+  endTime?: number;
+}
+
+/** Build a query for the order-history endpoints, omitting unset fields. */
+export function buildOrderHistoryQuery(input: OrderHistoryQueryInput): Query {
+  const query: Query = {};
+  if (input.accountType) query.accountType = input.accountType;
+  if (input.hideCancel !== undefined)
+    query.hideCancel = String(input.hideCancel);
+  if (input.type) query.type = input.type;
+  if (input.side) query.side = input.side;
+  if (input.symbol) query.symbol = input.symbol;
+  if (input.states) query.states = input.states;
+  if (input.direction) query.direction = input.direction;
+  if (input.limit !== undefined) query.limit = input.limit;
+  if (input.from !== undefined) query.from = input.from;
+  if (input.startTime !== undefined) query.startTime = input.startTime;
+  if (input.endTime !== undefined) query.endTime = input.endTime;
+  return query;
+}
+
+/**
+ * Resolve an order lookup path. Poloniex supports lookup by order id
+ * (`{base}/{id}`) or by client order id (`{base}/cid:{clientOrderId}`); exactly
+ * one must be supplied.
+ */
+export function resolveOrderPath(
+  base: string,
+  id: string | undefined,
+  clientOrderId: string | undefined,
+): string {
+  if (id && clientOrderId) {
+    throw new Error("Provide either id or clientOrderId, not both.");
+  }
+  if (id) return `${base}/${id}`;
+  if (clientOrderId) return `${base}/cid:${clientOrderId}`;
+  throw new Error("Provide an id or a clientOrderId.");
 }
 
 /** Normalize a symbol argument, e.g. " btc_usdt " -> "BTC_USDT". */
