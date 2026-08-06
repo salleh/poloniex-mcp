@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1] - 2026-08-06
+
 ### Changed
 
 - README now documents all 35 tools, grouped by domain (public market/reference
